@@ -1,0 +1,18 @@
+{
+    "name": "apple",
+    "version": "0.0.0",
+    "description": "apple game",
+    "main": "server.js",
+    "scripts": {
+        "dev": "nodemon server.js",
+        "start": "node server.js"
+    },
+    "author": "mat1jaczyyy",
+    "dependencies": {
+        "ejs": "^3.1.6",
+        "express": "^4.17.2"
+    },
+    "devDependencies": {
+        "nodemon": "2.0.7"
+    }
+}

@@ -1,0 +1,12 @@
+/*
+ * "subset_2019_06_10" is licensed under the SIL Open Font License Version 1.1.
+ *
+ * "subset_2019_06_10" is a subset of "Noto Sans CJK JP".
+ * "Noto Sans CJK JP" is licensed under the SIL Open Font License Version 1.1.
+ * https://www.google.com/get/noto/
+ */
+ 
+@font-face{
+	font-family:'subset_2019_06_10';
+	src:url('../fonts/subset_2019_06_10.woff') format('woff');
+}

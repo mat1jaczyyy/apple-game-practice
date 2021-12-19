@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html class="wf-subset20190610-n4-active wf-active" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-2781332-2');
+</script>
+
+<meta charset="UTF-8">
+<title>Fruit Box - Free Online Puzzle Game</title>
+<meta name="apple-mobile-web-app-title" content="Fruit Box">
+<link rel="apple-touch-icon" href="https://en.gamesaien.com/game/files/icons/icon_box_a.png" sizes="180x180">
+<link rel="stylesheet" type="text/css" href="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/gamepage.css">
+
+<script src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/webfont.js"></script>
+<script src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/createjs-1.js"></script>
+<script src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/fruit_box_a_006_o.js"></script>
+
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("7475C6A158E3BF4B8C03C4B79FFD5BA3");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+		var preloaderDiv = document.getElementById("_preload_div_");
+	preloaderDiv.style.display = 'none';
+	dom_overlay_container.style.display = canvas.style.display = 'block';
+	exportRoot = new lib.fruit_box_a_006();
+	stage = new lib.Stage(canvas);	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	AdobeAn.makeResponsive(false,'both',false,1,[canvas,anim_container,dom_overlay_container]);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+
+//webfont.js
+function funLoadWebFont (e)
+{
+	WebFont.load ( 
+	{
+		custom :
+		{
+			families : ["subset_2019_06_10"] ,
+			urls : ["../files/gamepage-css/webfont.css"]
+		},
+		//loaded all webfonts
+		active : function ()
+		{
+			//app start
+			init ();
+		},
+		//failed
+		inactive : function ()
+		{
+		}
+	});
+}
+
+if (navigator.userAgent.indexOf ('iPad') > 0)
+{
+	if (window.innerWidth > window.innerHeight)
+	{
+		document.write ('<meta name="viewport" content="width=880">');
+	} else
+	{
+		document.write ('<meta name="viewport" content="width=700">');
+	}
+} else
+{
+	document.write ('<meta name="viewport" content="width=960">');
+}
+
+ef_lang = "en";
+
+</script><meta name="viewport" content="width=960"><link rel="stylesheet" href="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/webfont.css" media="all">
+
+</head>
+
+<body onload="funLoadWebFont();">
+<table id="ta1" border="0" align="center">
+  <tbody><tr>
+    <td>
+    </td>
+    <td colspan="2">
+      <script>
+      if(navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)){
+	// スマートフォン・タブレット
+	document.write ('<div style="padding-left:14px;font-size:7pt;">');	
+	}else{
+	// PC
+	document.write ('<div style="padding-left:15px;font-size:8pt;">');
+	}
+      </script><div style="padding-left:15px;font-size:8pt;">
+      <a href="https://en.gamesaien.com/">Home (Game Saien)</a> / Fruit Box
+      </div>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="2">
+      <div style="padding-right:20px;padding-top:10px;">
+        <!-- 左広告-->
+        <script src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/ad_pc_160_600.js"></script>
+      </div>
+    </td>
+    <td colspan="2">
+      <div id="animation_container" style="background-color:rgba(255,255,255, 1.00); width:720px; height:470px">
+        <canvas id="canvas" style="position: absolute; display: block; background-color: rgb(255, 255, 255); width: 720px; height: 470px;" width="864" height="564"></canvas>
+        <div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:720px; height:470px; position: absolute; left: 0px; top: 0px; display: block;">
+        </div></div>
+        <div id="_preload_div_" style="position: relative; left: 330px; top: -265px; display: none;">
+          <img src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/nowloading.gif">
+        </div>
+      <!-- 下広告-->
+   	<script src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/ad_ipad_responsive.js"></script>
+    </td>
+    <td rowspan="2">
+      <div style="padding-left:20px;padding-top:10px;">
+        <!-- 右広告-->
+        <script src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/ad_not-ipad_160_600.js"></script>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td height="200px">
+      <div style="width:370px;height200px;padding-left:20px;padding-right:20px;padding-top:10px;">
+        <!--  説明左-->
+        Drag the mouse to exactly enclose some apples so the numbers in the apples total 10.<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;<img src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/zu01.png" width="162" height="96" border="0">&nbsp;
+                    <p></p>
+                    <p>
+                        You get 1 point for each apple.
+                    </p>
+                    <p>
+                        The colors (apples etc.) will be lighter when checking "Light Colors".
+                    </p>
+      </div>
+    </td>
+    <td>
+      <div style="text-align:right;padding-left:20px;padding-right:20px;padding-top:20px;height:600px">
+        <!-- 右下広告-->
+        <script src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/ad_pc_200_200.js"></script><script async="" src="Fruit%20Box%20-%20Free%20Online%20Puzzle%20Game_files/adsbygoogle.js"></script><!-- 200x200, 作成済み 10/06/29 --><ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-0839959289662987" data-ad-slot="7118900272"><iframe id="aswift_0" style="height: 1px !important; max-height: 1px !important; max-width: 1px !important; width: 1px !important;"><iframe id="google_ads_frame0"></iframe></iframe></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        
+      </div>
+    </td>
+  </tr>
+</tbody></table>
+
+
+<div id="preloadjs-container" style="visibility: hidden; position: absolute; height: 10px; width: 10px; overflow: hidden; transform: translate(-10px, -10px);"></div></body></html>
