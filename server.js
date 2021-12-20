@@ -13,4 +13,4 @@ index.get('/', function (req, res, next) {
 });
 app.use('/', index);*/
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
