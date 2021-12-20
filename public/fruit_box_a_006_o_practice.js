@@ -159,7 +159,7 @@ let APS_STRING = function(a, tot, r) {
     return `${(a / (tot - Math.max(r, 0)) || 0).toFixed(2)} APS`;
 }
 let ELAPSED_STRING = function(r) {
-    let date = new Date(0);
+    let date = new Date(0, 0);
     date.setMilliseconds(Math.max(r, 0) * 1000);
     return `${date.getMinutes()}:${String(date.getSeconds()).padStart(2, '0')}.${String(date.getMilliseconds()).padStart(3, '0')}`
 }
