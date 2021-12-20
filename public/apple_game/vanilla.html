@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>apple game</title>
+	<meta name="apple-mobile-web-app-title" content="apple game">
+	<link rel="apple-touch-icon" href="../files/icons/icon_box_a.png" sizes="180x180">
+	<link rel="stylesheet" type="text/css" href="../files/gamepage-css/gamepage.css">
+
+	<script src="../files/gamepage-js/webfont.js"></script>
+	<script src="../files/gamepage-js/createjs-1.0.0.min.js"></script>
+	<script src="fruit_box_a_006_o.js"></script>
+
+	<script>
+		var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+		function init() {
+			canvas = document.getElementById("canvas");
+			anim_container = document.getElementById("animation_container");
+			dom_overlay_container = document.getElementById("dom_overlay_container");
+			var comp = AdobeAn.getComposition("7475C6A158E3BF4B8C03C4B79FFD5BA3");
+			var lib = comp.getLibrary();
+			var loader = new createjs.LoadQueue(false);
+			loader.addEventListener("fileload", function (evt) { handleFileLoad(evt, comp) });
+			loader.addEventListener("complete", function (evt) { handleComplete(evt, comp) });
+			var lib = comp.getLibrary();
+			loader.loadManifest(lib.properties.manifest);
+		}
+
+		function handleFileLoad(evt, comp) {
+			var images = comp.getImages();
+			if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }
+		}
+
+		function handleComplete(evt, comp) {
+			//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+			var lib = comp.getLibrary();
+			var ss = comp.getSpriteSheet();
+			var queue = evt.target;
+			var ssMetadata = lib.ssMetadata;
+			for (i = 0; i < ssMetadata.length; i++) {
+				ss[ssMetadata[i].name] = new createjs.SpriteSheet({ "images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames })
+			}
+			var preloaderDiv = document.getElementById("_preload_div_");
+			preloaderDiv.style.display = 'none';
+			dom_overlay_container.style.display = canvas.style.display = 'block';
+			exportRoot = new lib.fruit_box_a_006();
+			stage = new lib.Stage(canvas);
+			//Registers the "tick" event listener.
+			fnStartAnimation = function () {
+				stage.addChild(exportRoot);
+				createjs.Ticker.setFPS(lib.properties.fps);
+				createjs.Ticker.addEventListener("tick", stage);
+			}
+			//Code to support hidpi screens and responsive scaling.
+			AdobeAn.makeResponsive(false, 'both', false, 1, [canvas, anim_container, dom_overlay_container]);
+			AdobeAn.compositionLoaded(lib.properties.id);
+			fnStartAnimation();
+		}
+
+		//webfont.js
+		function funLoadWebFont(e) {
+			WebFont.load(
+				{
+					custom:
+					{
+						families: ["subset_2019_06_10"],
+						urls: ["../files/gamepage-css/webfont.css"]
+					},
+					//loaded all webfonts
+					active: function () {
+						//app start
+						init();
+					},
+					//failed
+					inactive: function () {
+					}
+				});
+		}
+
+		if (navigator.userAgent.indexOf('iPad') > 0) {
+			if (window.innerWidth > window.innerHeight) {
+				document.write('<meta name="viewport" content="width=880">');
+			} else {
+				document.write('<meta name="viewport" content="width=700">');
+			}
+		} else {
+			document.write('<meta name="viewport" content="width=960">');
+		}
+
+		ef_lang = "en";
+
+	</script>
+
+</head>
+
+<body onload="funLoadWebFont();">
+	<div align="center" style="margin-top: 30px;">
+		<div id="animation_container"
+			style="background-color:rgba(255,255,255, 1.00); width:720px; height:470px">
+			<canvas id="canvas" width="720" height="470"
+				style="position: absolute; display: block; background-color:rgba(255,255,255, 1.00);"></canvas>
+			<div id="dom_overlay_container"
+				style="pointer-events:none; overflow:hidden; width:720px; height:470px; position: absolute; left: 0px; top: 0px; display: block;">
+			</div>
+		</div>
+		<div id='_preload_div_' style='position:relative;left: 330px; top: -265px;'>
+			<img src="../files/gamepage-images/nowloading.gif" />
+		</div>
+	</div>
+</body>
+
+</html>
