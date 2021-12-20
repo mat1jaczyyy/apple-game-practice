@@ -7,10 +7,20 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*const index = express.Router();
+const index = express.Router();
+
+function renderAppleGame(res, prac) {
+    res.render('apple_game', {
+        practice: prac
+    })
+};
+
 index.get('/', function (req, res, next) {
-    res.render('');
+    renderAppleGame(res, false);
 });
-app.use('/', index);*/
+index.get('/practice', function (req, res, next) {
+    renderAppleGame(res, true);
+});
+app.use('/', index);
 
 app.listen(process.env.PORT || 3000);
