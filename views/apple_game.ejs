@@ -120,7 +120,7 @@
 			</p>
 			<script>
 				let timeAll = document.getElementById("timeAll");
-				timeAll.value = localStorage.getItem("timeAll" || timeAll.value);
+				timeAll.value = localStorage.getItem("timeAll") || timeAll.value;
 
 				timeAll.addEventListener('input', el => {
 					localStorage.setItem("timeAll", timeAll.value);
