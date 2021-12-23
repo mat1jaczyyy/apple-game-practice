@@ -13,148 +13,38 @@ let START_SUM = 0;
 let BOARD_SUM = 0;
 let SUM_STRING = function() {
     return `Start: ${START_SUM}        Sum: ${BOARD_SUM}`
-}
-let REUSE_COMBINATIONS = [
-    [{1: 2}],
-    [{2: 1, 1: 1}, {1: 3}],
-    [{3: 1, 1: 1}, {2: 2}, {2: 1, 1: 2}, {1: 4}],
-];
-let SMALLNUM_COMBINATIONS = [
-    {1: 1, 4: 1, 5: 1},
-    {2: 1, 3: 1, 5: 1},
-    {2: 1, 4: 2},
-    {3: 2, 4: 1},
-    {1: 2, 3: 1, 5: 1},
-    {1: 2, 4: 2},
-    {1: 1, 2: 2, 5: 1},
-    {1: 1, 2: 1, 3: 1, 4: 1},
-    {1: 1, 3: 3},
-    {2: 3, 4: 1},
-    {2: 2, 3: 2},
-    {1: 3, 2: 1, 5: 1},
-    {1: 3, 3: 1, 4: 1},
-    {1: 2, 2: 2, 4: 1},
-    {1: 2, 2: 1, 3: 2},
-    {1: 1, 2: 3, 3: 1},
-    {2: 5},
-    {1: 5, 5: 1},
-    {1: 4, 2: 1, 4: 1},
-    {1: 4, 3: 2},
-    {1: 3, 2: 2, 3: 1},
-    {1: 2, 2: 4},
-    {1: 6, 4: 1},
-    {1: 5, 2: 1, 3: 1},
-    {1: 7, 3: 1},
-    {1: 6, 2: 2},
-    {1: 8, 2: 1},
-    {1: 10},
-    {5: 2},
-];
-let MAX_STRINGS = function(mg) {
-    let leftover = {5: 0};
-    let dead = [];
+};
+let MAX_WORKER = null;
+let MAX_WORKER_KILL = function() {
+    if (!window.Worker) return;
 
-    for (let i = 9; i >= 6; i--) {
-        let nine = 0;
-        let one = 0;
-        for (let kk = 1; kk <= 170; kk++) {
-            if (mg[`mk${kk}`].flDroped) continue;
-            
-            let n = mg[`mk${kk}`].nu;
-            if (n == i) nine++;
-            if (n == 10 - i) one++;
-        }
-        console.log(`count ${i} => ${nine}, ${10 - i} => ${one}`);
-        let u = one - nine;
+    if (MAX_WORKER) {
+        MAX_WORKER.terminate();
+        MAX_WORKER = null;
+    }
+};
+let MAX_WORKER_START = function(mg, point, tx) {
+    if (!window.Worker) return;
 
-        leftover[10 - i] = Math.max(0, u);
+    MAX_WORKER_KILL();
+    MAX_WORKER = new Worker('max.js');
 
-        if (i <= 8) {
-            while (u < 0) {
-                let res = false;
-                for (const v of REUSE_COMBINATIONS[8 - i]) {
-                    let can = true;
-                    for (const [vk, vv] of Object.entries(v)) {
-                        if (leftover[vk] < vv) {
-                            can = false;
-                            break;
-                        }
-                    }
-                    if (can) {
-                        res = true;
-                        for (const [vk, vv] of Object.entries(v)) {
-                            leftover[vk] -= vv;
-                        }
-                        u += 1;
-                    }
-                }
-                if (res == false) {
-                    break;
-                }
-            }
-        }
-
-        dead.push(Math.max(0, -u));
-
-        console.log(`leftover => ${JSON.stringify(leftover)}`);
-        console.log(`dead after ${i} => ${dead}`);
+    let cnt = {};
+    for (let i = 1; i <= 9; i++) {
+        cnt[i] = 0;
     }
 
     for (let kk = 1; kk <= 170; kk++) {
-        if (mg[`mk${kk}`].flDroped) continue;
-
-        let n = mg[`mk${kk}`].nu;
-        if (n == 5) leftover[5]++;
-    }
-    
-    let max = 0;
-    for (const [vk, vv] of Object.entries(leftover)) {
-        max += vv;
+        if (!mg['mk' + kk].flDroped)
+            cnt[mg['mk' + kk].nu]++;
     }
 
-    let known = [];
-    let best = 0;
+    MAX_WORKER.addEventListener("message", e => {
+        tx.text = `Max: ${point + e.data.best}`;
+    })
 
-    let explore = function(node, apples = 0) {
-        best = Math.max(best, apples);
-
-        for (const v of SMALLNUM_COMBINATIONS) {
-            let can = true;
-            for (const [vk, vv] of Object.entries(v)) {
-                if (node[vk] < vv) {
-                    can = false;
-                    break;
-                }
-            }
-            if (!can) continue;
-
-            let next = {};
-            let s = 0;
-            for (const [vk, vv] of Object.entries(node)) {
-                next[vk] = vv;
-            }
-            for (const [vk, vv] of Object.entries(v)) {
-                next[vk] -= vv;
-                s += vv;
-            }
-            let str = `${next[1]} ${next[2]} ${next[3]} ${next[4]} ${next[5]}`;
-            if (known.includes(str)) continue;
-
-            known.push(str);
-            explore(next, apples + s);
-        }
-    };
-    
-    console.log(`your leftover task is ${JSON.stringify(leftover)}`);
-
-    explore(leftover);
-    console.log(`max = ${max}, best = ${best}`);
-
-    return [
-        `Dead: ${dead.join(' ')}`,
-        `Max: ${170 - dead.reduce((a, b) => a + b, 0) - max + best}`
-    ]
-}
+    MAX_WORKER.postMessage({cnt: cnt, target: 170 - point});
+};
 let APS_STRING = function(a, tot, r) {
     return `${(a / (tot - Math.max(r, 0)) || 0).toFixed(2)} APS`;
 }
@@ -1687,8 +1577,10 @@ function(_0x417268, _0x470bf3) {
             this.txSum.text = SUM_STRING();
 
             CREATE_TEXT_ELEMENT(this, 'txMax', 0x270, 0x36, 0x50, "right");
-            CREATE_TEXT_ELEMENT(this, 'txDead', 0x4a, 0x195, 0xa0);
-            [this.txDead.text, this.txMax.text] = MAX_STRINGS(this.mg, this.point);
+            this.txMax.text = "";
+            MAX_WORKER_START(this['mg'], this.point, this.txMax);
+
+            //CREATE_TEXT_ELEMENT(this, 'txDead', 0x4a, 0x195, 0xa0);
 
             CREATE_TEXT_ELEMENT(this, 'txAPS', 0x270, 0x195, 0x50, "right");
             this.txAPS.text = APS_STRING(0, timeAll, timeAll);
@@ -1765,7 +1657,7 @@ function(_0x417268, _0x470bf3) {
                     }
                     BOARD_SUM -= 10;
                     this.txSum.text = SUM_STRING();
-                    [this.txDead.text, this.txMax.text] = MAX_STRINGS(this.mg, this.point);
+                    MAX_WORKER_START(this['mg'], this.point, this.txMax); // todo make this smarter
                     nuMbX * nuMbY == this['point'] && _0x3bdb71['call'](exportRoot['mm']),
                     sound = createjs[_0x5434aa(0x174)][_0x5434aa(0x11e)](0x2),
                     sound['volume'] = exportRoot[_0x5434aa(0x185)];
@@ -2087,6 +1979,7 @@ function(_0x417268, _0x470bf3) {
             this.visible = true;
             function _0x22426e(_0xc33f76) {
                 var _0x1cd64b = _0x340742;
+                MAX_WORKER_KILL();
                 createjs['Sound'][_0x1cd64b(0xd3)](),
                 sound = createjs[_0x1cd64b(0x174)]['play'](0x1),
                 sound['volume'] = exportRoot[_0x1cd64b(0x185)],
