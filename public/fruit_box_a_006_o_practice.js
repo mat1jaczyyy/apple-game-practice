@@ -665,6 +665,13 @@ function(_0x417268, _0x470bf3) {
         this[_0x10dda4(0x11d)] = new _0x417268['Shape'](),
         this['shape_6']['graphics']['f']()['s'](_0x10dda4(0x16b))['ss'](0x1, 0x1, 0x1)['p'](_0x10dda4(0x137)),
         this['shape_6'][_0x10dda4(0x9e)](0x19, 0xa),
+        this['customText'] = new createjs.Text("New", "13px 'subset_2019_06_10'", "#CCFFCC"),
+        this['customText'].parent = this,
+        this['customText'].name = 'customText',
+        this['customText'].lineHeight = 0x1a,
+        this['customText'].setTransform(11, 3.5, 1, 1),
+        this['customText'].lineWidth = 0x20,
+        this['customText'].textAlign = "left",
         this[_0x10dda4(0x134)]['addTween'](_0x417268[_0x10dda4(0x143)]['get']({})['to']({
             'state': [{
                 't': this[_0x10dda4(0x11d)]
@@ -678,8 +685,15 @@ function(_0x417268, _0x470bf3) {
                 't': this[_0x10dda4(0xea)]
             }, {
                 't': this[_0x10dda4(0x126)]
+            }, {
+                't': this['customText']
             }]
-        })[_0x10dda4(0x15a)](0x1)),
+        })[_0x10dda4(0x15a)](0x1));
+        this.shape_1.alpha=0;
+        this.shape_2.alpha=0;
+        this.shape_3.alpha=0;
+        this.shape_4.alpha=0;
+        this.shape_5.alpha=0;
         this[_0x10dda4(0x8a)]();
     }
     )[_0x182e50(0xe5)] = _0x158966(_0x2172f1['formzBtResetリセットボタン'], new _0x417268[(_0x182e50(0xf6))](-0x2,-0x2,0x36,23.3), null),
@@ -2073,17 +2087,21 @@ function(_0x417268, _0x470bf3) {
             this.visible = true;
             function _0x22426e(_0xc33f76) {
                 var _0x1cd64b = _0x340742;
-                try {
-                    this['mm_base'][_0x1cd64b(0x9a)](this['mm']),
-                    delete this['mm'],
-                    createjs[_0x1cd64b(0xfb)][_0x1cd64b(0xa3)](),
-                    createjs[_0x1cd64b(0xfb)][_0x1cd64b(0x194)](),
-                    createjs[_0x1cd64b(0xfb)][_0x1cd64b(0x1b2)](_0x1cd64b(0xd0), stage);
-                } catch (_0x435eb1) {}
                 createjs['Sound'][_0x1cd64b(0xd3)](),
                 sound = createjs[_0x1cd64b(0x174)]['play'](0x1),
                 sound['volume'] = exportRoot[_0x1cd64b(0x185)],
                 exportRoot[_0x1cd64b(0x1e3)](-0x1 + 0x8);
+                var _0x12c1db = _0x340742;
+                try {
+                    this['mm_base'][_0x12c1db(0x9a)](this['mm']),
+                    delete this['mm'],
+                    createjs[_0x12c1db(0xfb)]['removeAllEventListeners'](),
+                    createjs['Ticker'][_0x12c1db(0x194)](),
+                    createjs[_0x12c1db(0xfb)]['addEventListener']('tick', stage);
+                } catch (_0x24e8d0) {}
+                sound = createjs[_0x12c1db(0x174)][_0x12c1db(0x11e)](0x1),
+                sound['volume'] = exportRoot[_0x12c1db(0x185)],
+                exportRoot[_0x12c1db(0x1e3)](-0x1 + 0xa);
             }
             ;
         }
