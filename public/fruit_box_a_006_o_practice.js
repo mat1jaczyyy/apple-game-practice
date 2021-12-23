@@ -1465,6 +1465,9 @@ function(_0x417268, _0x470bf3) {
         this.shape_2.alpha = 0,
         this.shape_3.alpha = 0,
         this.shape_4.alpha = 0,
+        this.shape_5.alpha = 0,
+        this.shape_6.alpha = 0,
+        this.shape_7.alpha = 0,
         this[_0x35ba7e(0x8a)]();
     }
     )[_0x182e50(0xe5)] = _0x47b74b = new _0x417268[(_0x182e50(0x18d))](),
