@@ -1596,7 +1596,7 @@ function(_0x417268, _0x470bf3) {
             this[_0x12dfe1(0x159)] = 0x0,
             this[_0x12dfe1(0x7d)][_0x12dfe1(0x1d4)] = this[_0x12dfe1(0x159f)],
             this[_0x12dfe1(0x7d)][_0x12dfe1(0x114)] = 'alphabetic',
-            timeAll = 0x78,
+            timeAll = Math.max(5, Math.min(600, parseInt(document.getElementById('timeAll').value) || 120)),
             nuMbX = 0x11,
             nuMbY = 0xa,
             cellSpacing = 0x21,

@@ -1,6 +1,3 @@
-html, body {
-  height: 100%;
-}
 body {
   margin:0px;
   font-family:sans-serif;
@@ -16,4 +13,12 @@ td {
 #ta1 {
   border-collapse: collapse;
   border: #ffffff 0px solid;
+}
+
+input:invalid {
+  border: 2px dashed red;
+}
+
+input:invalid:required {
+  background-image: linear-gradient(to right, rgb(231, 64, 64), rgb(255, 106, 130));
 }

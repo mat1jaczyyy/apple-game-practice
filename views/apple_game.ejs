@@ -95,14 +95,13 @@
 
 </head>
 
-<body onload="funLoadWebFont();">
-	<div align="center" style="margin-top: 30px;">
-		<div id="animation_container"
-			style="background-color:rgba(255,255,255, 1.00); width:720px; height:470px">
-			<p align="left" style="margin-left: 30px;">
-				Currently playing <span style="font-weight: bold;"><% if (practice) {%>practice<% } else { %>vanilla<% } %></span>.
-				Switch to <% if (practice) {%><a href="/">vanilla</a><% } else { %><a href="/practice">practice</a><% } %>?
-			</p>
+<body onload="funLoadWebFont();" style="margin-top: 30px; text-align: center;">
+	<div style="display: inline-block;">
+		<p style="text-align: center" style="margin-left: 30px;">
+			Currently playing <span style="font-weight: bold;"><% if (practice) {%>practice<% } else { %>vanilla<% } %></span>.
+			Switch to <% if (practice) {%><a href="/">vanilla</a><% } else { %><a href="/practice">practice</a><% } %>?
+		</p>
+		<div id="animation_container">
 			<canvas id="canvas" width="720" height="470"
 				style="position: absolute; display: block; background-color:rgba(255,255,255, 1.00);"></canvas>
 			<div id="dom_overlay_container"
@@ -113,6 +112,22 @@
 			<img src="files/gamepage-images/nowloading.gif" />
 		</div>
 	</div>
+	<% if (practice) { %>
+		<div style="margin-top: 30px;">
+			<p><span style="font-weight: bold;">Settings</span></p>
+			<p>
+				Time: <input type="number" id="timeAll" min="5" max="600" value="120" style="width: 4em;" required> seconds
+			</p>
+			<script>
+				let timeAll = document.getElementById("timeAll");
+				timeAll.value = localStorage.getItem("timeAll" || timeAll.value);
+
+				timeAll.addEventListener('input', el => {
+					localStorage.setItem("timeAll", timeAll.value);
+				});
+			</script>
+		</div>
+	<% } %>
 </body>
 
 </html>
