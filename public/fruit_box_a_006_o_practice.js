@@ -14,20 +14,20 @@ let BOARD_SUM = 0;
 let SUM_STRING = function() {
     return `Start: ${START_SUM}        Sum: ${BOARD_SUM}`
 };
-let MAX_WORKER = null;
-let MAX_WORKER_KILL = function() {
+let MAX_MANAGER = null;
+let MAX_MANAGER_KILL = function() {
     if (!window.Worker) return;
 
-    if (MAX_WORKER) {
-        MAX_WORKER.terminate();
-        MAX_WORKER = null;
+    if (MAX_MANAGER) {
+        MAX_MANAGER.terminate();
+        MAX_MANAGER = null;
     }
 };
-let MAX_WORKER_START = function(mg, point, tx) {
+let MAX_MANAGER_START = function(mg, tx) {
     if (!window.Worker) return;
 
-    MAX_WORKER_KILL();
-    MAX_WORKER = new Worker('max.js');
+    MAX_MANAGER_KILL();
+    MAX_MANAGER = new Worker('max/manager.js');
 
     let cnt = {};
     for (let i = 1; i <= 9; i++) {
@@ -38,12 +38,21 @@ let MAX_WORKER_START = function(mg, point, tx) {
         if (!mg['mk' + kk].flDroped)
             cnt[mg['mk' + kk].nu]++;
     }
+    
+    MAX_MANAGER.addEventListener("message", e => {
+        if (e.data.best !== undefined) {
+            tx.text = `Max: ${e.data.best}`;
+        }
+    });
 
-    MAX_WORKER.addEventListener("message", e => {
-        tx.text = `Max: ${point + e.data.best}`;
-    })
+    MAX_MANAGER.postMessage({cnt: cnt});
+};
+let MAX_MANAGER_ACTION = function(vals) {
+    if (!MAX_MANAGER) return;
 
-    MAX_WORKER.postMessage({cnt: cnt, target: 170 - point});
+    vals.sort((a, b) => b - a);
+    
+    MAX_MANAGER.postMessage({action: vals.join('')});
 };
 let APS_STRING = function(a, tot, r) {
     return `${(a / (tot - Math.max(r, 0)) || 0).toFixed(2)} APS`;
@@ -1498,7 +1507,7 @@ function(_0x417268, _0x470bf3) {
             var _0x12dfe1 = _0x444ddb;
             this[_0x12dfe1(0xd3)](),
             this[_0x12dfe1(0x159)] = 0x0,
-            this[_0x12dfe1(0x7d)][_0x12dfe1(0x1d4)] = this[_0x12dfe1(0x159f)],
+            this[_0x12dfe1(0x7d)][_0x12dfe1(0x1d4)] = this[_0x12dfe1(0x159)],
             this[_0x12dfe1(0x7d)][_0x12dfe1(0x114)] = 'alphabetic',
             timeAll = Math.max(5, Math.min(600, parseInt(document.getElementById('timeAll').value) || 120)),
             nuMbX = 0x11,
@@ -1578,7 +1587,7 @@ function(_0x417268, _0x470bf3) {
 
             CREATE_TEXT_ELEMENT(this, 'txMax', 0x270, 0x36, 0x50, "right");
             this.txMax.text = "";
-            MAX_WORKER_START(this['mg'], this.point, this.txMax);
+            MAX_MANAGER_START(this['mg'], this.txMax);
 
             //CREATE_TEXT_ELEMENT(this, 'txDead', 0x4a, 0x195, 0xa0);
 
@@ -1645,19 +1654,21 @@ function(_0x417268, _0x470bf3) {
                 var _0x5434aa = _0x12dfe1;
                 if (sum == 0xa) {
                     kk = 0x0;
+                    let cleared = [];
                     for (ii = 0x0; ii < nuMbY; ii++) {
                         for (jj = 0x0; jj < nuMbX; jj++) {
                             kk++,
                             !this['mg']['mk' + kk][_0x5434aa(0x148)] && this['mg']['mk' + kk]['mks']['mksb'][_0x5434aa(0xce)] && (this['mg'][_0x5434aa(0x10e)](this['mg']['mk' + kk], this['mg'][_0x5434aa(0x111)]() - 0x1),
                             this['mg']['mk' + kk][_0x5434aa(0x12e)](),
                             this['mg']['mk' + kk][_0x5434aa(0x148)] = !![],
+                            cleared.push(this['mg']['mk' + kk].nu),
                             this[_0x5434aa(0x159)] += 0x1,
                             this[_0x5434aa(0x7d)][_0x5434aa(0x1d4)] = this[_0x5434aa(0x159)]);
                         }
                     }
                     BOARD_SUM -= 10;
                     this.txSum.text = SUM_STRING();
-                    MAX_WORKER_START(this['mg'], this.point, this.txMax); // todo make this smarter
+                    MAX_MANAGER_ACTION(cleared);
                     nuMbX * nuMbY == this['point'] && _0x3bdb71['call'](exportRoot['mm']),
                     sound = createjs[_0x5434aa(0x174)][_0x5434aa(0x11e)](0x2),
                     sound['volume'] = exportRoot[_0x5434aa(0x185)];
@@ -1979,7 +1990,7 @@ function(_0x417268, _0x470bf3) {
             this.visible = true;
             function _0x22426e(_0xc33f76) {
                 var _0x1cd64b = _0x340742;
-                MAX_WORKER_KILL();
+                MAX_MANAGER_KILL();
                 createjs['Sound'][_0x1cd64b(0xd3)](),
                 sound = createjs[_0x1cd64b(0x174)]['play'](0x1),
                 sound['volume'] = exportRoot[_0x1cd64b(0x185)],
@@ -2100,7 +2111,7 @@ function(_0x417268, _0x470bf3) {
         this[_0x34ff56(0xd4)][_0x34ff56(0xfc)] = !![],
         this['timeline'][_0x34ff56(0x93)](_0x417268[_0x34ff56(0x143)][_0x34ff56(0xa1)](this[_0x34ff56(0xd4)])[_0x34ff56(0x15a)](0x1)['to']({
             '_off': ![]
-        }, 0x0)[_0x34ff56(0x15a)](0x9)),
+        }, 0x0)[_0x34ff56(0x15a)](0x9));
         this['_renderFirstFrame']();
     }
     )[_0x182e50(0xe5)] = _0x47b74b = new _0x2172f1[(_0x182e50(0x13f))](),

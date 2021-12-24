@@ -180,7 +180,7 @@ function(_0x417268, _0x470bf3) {
             if (!_0x19c95a)
                 return;
             else
-                return; 
+                return;
             _0x3f6a7f();
         });
         _0x2a2f32();
