@@ -164,7 +164,7 @@
 
 				for (const i of checkboxes) {
 					let e = document.getElementById(i);
-					e.checked = localStorage.getItem(i) || e.checked;
+					e.checked = (localStorage.getItem(i) || e.checked.toString()) === 'true';
 
 					e.addEventListener('input', el => {
 						localStorage.setItem(i, e.checked);
