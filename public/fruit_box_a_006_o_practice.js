@@ -25,6 +25,7 @@ let MAX_MANAGER_KILL = function() {
 };
 let MAX_MANAGER_START = function(mg, tx) {
     if (!window.Worker) return;
+    if (!(document.getElementById('powerSaving').checked || false)) return;
 
     MAX_MANAGER_KILL();
     MAX_MANAGER = new Worker('max/manager.js');
@@ -45,10 +46,11 @@ let MAX_MANAGER_START = function(mg, tx) {
         }
     });
 
-    MAX_MANAGER.postMessage({cnt: cnt});
+    MAX_MANAGER.postMessage({cnt: cnt, points: exportRoot.mm.point});
 };
 let MAX_MANAGER_ACTION = function(vals) {
     if (!MAX_MANAGER) return;
+    if (!(document.getElementById('powerSaving').checked || false)) return;
 
     vals.sort((a, b) => b - a);
     
@@ -1778,8 +1780,16 @@ function(_0x417268, _0x470bf3) {
                     );
                 }
             }
+            function updatePowerSaving(v) {
+                if (v) MAX_MANAGER_START(this.mg, this.txMax);
+                else {
+                    MAX_MANAGER_KILL();
+                    this.txMax.text = "";
+                }
+            }
             this['funLightColor'] = _0xf28cc1,
             this['updateAppleColor'] = updateAppleColor,
+            this['updatePowerSaving'] = updatePowerSaving,
             flPlaying = !![],
             _0x3245b6();
         }

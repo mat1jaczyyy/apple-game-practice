@@ -76,7 +76,7 @@ self.addEventListener("message", e => {
         CNT = e.data.cnt;
         TREE = {};
         STACK = [];
-        POINTS = 0;
+        POINTS = e.data.points;
         MAX_SEARCH_START();
 
     } else if (e.data.action !== undefined) {

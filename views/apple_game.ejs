@@ -133,8 +133,18 @@
 				<button onclick="setAppleColor('#FF3333')">Default</button>
 				<button onclick="setAppleColor('#FF6655')">Light</button>
 			</div>
+			<div>
+				<span style="font-weight: bold;">
+					Max:
+				</span>
+				<input type="checkbox" id="powerSaving" onchange="changePowerSaving()" required>
+				<span>
+					(resource intensive!)
+				</span>
+			</div>
 			<script>
 				let vars = ["timeAll", "appleColor"];
+				let checkboxes = ["powerSaving"];
 				
 				for (const i of vars) {
 					let e = document.getElementById(i);
@@ -145,13 +155,26 @@
 					});
 				}
 
+				for (const i of checkboxes) {
+					let e = document.getElementById(i);
+					e.checked = localStorage.getItem(i) || e.checked;
+
+					e.addEventListener('input', el => {
+						localStorage.setItem(i, e.checked);
+					});
+				}
+
 				function setAppleColor(c) {
 					document.getElementById("appleColor").value = c;
 					changeAppleColor(c);
 				}
 
 				function changeAppleColor() {
-					exportRoot.mm.updateAppleColor(document.getElementById("appleColor").value);
+					exportRoot.mm?.updateAppleColor(document.getElementById("appleColor").value);
+				}
+
+				function changePowerSaving() {
+					exportRoot.mm?.updatePowerSaving(document.getElementById("powerSaving").checked);
 				}
 			</script>
 		</div>
