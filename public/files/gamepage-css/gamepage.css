@@ -22,3 +22,16 @@ input:invalid {
 input:invalid:required {
   background-image: linear-gradient(to right, rgb(231, 64, 64), rgb(255, 106, 130));
 }
+#settings {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+#settings > div {
+  display: inline-flex;
+  margin: 6px 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}

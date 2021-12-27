@@ -287,6 +287,7 @@ function(_0x417268, _0x470bf3) {
         _0x2607ba == null && (_0x2607ba = !![]);
         _0x551d23 == null && (_0x551d23 = ![]);
         var _0x46056c = new Object();
+        let appleColor = document.getElementById('appleColor').value || '#FF3333';
         _0x46056c[_0x25e6cf(0xed)] = _0x422f96,
         _0x46056c[_0x25e6cf(0x145)] = _0x5b3fd6,
         _0x46056c[_0x25e6cf(0x1d9)] = {},
@@ -300,10 +301,10 @@ function(_0x417268, _0x470bf3) {
         ,
         this[_0x25e6cf(0x134)][_0x25e6cf(0x93)](_0x417268[_0x25e6cf(0x143)][_0x25e6cf(0xa1)](this)[_0x25e6cf(0x1cc)](this[_0x25e6cf(0xca)])['wait'](0x2)),
         this['shape'] = new _0x417268[(_0x25e6cf(0x17d))](),
-        this[_0x25e6cf(0x10c)][_0x25e6cf(0x120)]['f']('#FF3333')['s']()['p']('AhXBMQglgoAAg2QAAhDAogXQARgLAmAJQAPAEANAFIAHACIAJgDIAYgGQAkgIAPAKQAVAMAIAZQAGASAAAhQAAA2glAoQgkAng0AAQgzAAgkgng'),
+        this[_0x25e6cf(0x10c)][_0x25e6cf(0x120)]['f'](appleColor)['s']()['p']('AhXBMQglgoAAg2QAAhDAogXQARgLAmAJQAPAEANAFIAHACIAJgDIAYgGQAkgIAPAKQAVAMAIAZQAGASAAAhQAAA2glAoQgkAng0AAQgzAAgkgng'),
         this[_0x25e6cf(0x10c)][_0x25e6cf(0x9e)](12.5, 11.4923),
         this[_0x25e6cf(0x126)] = new _0x417268[(_0x25e6cf(0x17d))](),
-        this[_0x25e6cf(0x126)][_0x25e6cf(0x120)]['f']('#FF6655')['s']()['p'](_0x25e6cf(0x7e)),
+        this[_0x25e6cf(0x126)][_0x25e6cf(0x120)]['f'](appleColor)['s']()['p'](_0x25e6cf(0x7e)),
         this[_0x25e6cf(0x126)][_0x25e6cf(0x9e)](12.5, 11.4923),
         this[_0x25e6cf(0x134)][_0x25e6cf(0x93)](_0x417268[_0x25e6cf(0x143)]['get']({})['to']({
             'state': [{
@@ -946,6 +947,7 @@ function(_0x417268, _0x470bf3) {
         }
         ,
         this['timeline'][_0x17eb73(0x93)](_0x417268[_0x17eb73(0x143)][_0x17eb73(0xa1)](this)['call'](this['frame_0'])[_0x17eb73(0x15a)](0x2)),
+        /*
         this['instance'] = new _0x2172f1['formzCheckLightColorで使用'](),
         this['instance'][_0x17eb73(0x9e)](0x0, -0x14),
         this[_0x17eb73(0x134)]['addTween'](_0x417268[_0x17eb73(0x143)][_0x17eb73(0xa1)](this['instance'])[_0x17eb73(0x15a)](0x2)),
@@ -958,6 +960,7 @@ function(_0x417268, _0x470bf3) {
         this[_0x17eb73(0xd4)] = new _0x2172f1['forチェックボックスで使用'](),
         this['instance_1'][_0x17eb73(0x9e)](20.5, 20.5, 0x1, 0x1, 0x0, 0x0, 0x0, 20.5, 20.5),
         this[_0x17eb73(0x134)][_0x17eb73(0x93)](_0x417268[_0x17eb73(0x143)][_0x17eb73(0xa1)](this[_0x17eb73(0xd4)])[_0x17eb73(0x15a)](0x2)),
+        */
         this['_renderFirstFrame']();
     }
     )[_0x182e50(0xe5)] = _0x47b74b = new _0x417268[(_0x182e50(0x18d))](),
@@ -1739,6 +1742,8 @@ function(_0x417268, _0x470bf3) {
             }
             this[_0x12dfe1(0x162)] = _0x3245b6;
             function _0xf28cc1() {
+                return; // old light colors code
+                /*
                 var _0x585caa = _0x12dfe1;
                 kk = 0x0;
                 for (ii = 0x0; ii < nuMbY; ii++) {
@@ -1759,8 +1764,22 @@ function(_0x417268, _0x470bf3) {
                 this['me'][_0x585caa(0x155)]['mess'][_0x585caa(0x95)]['txTimeUpTime2'][_0x585caa(0xce)] = ![],
                 this['me'][_0x585caa(0xd1)][_0x585caa(0x15d)][_0x585caa(0x1e3)](0x0),
                 this['me'][_0x585caa(0xde)][_0x585caa(0x15d)][_0x585caa(0x1e3)](0x0));
+                */
+            }
+            function updateAppleColor(c) {
+                var _0x585caa = _0x12dfe1;
+                for (let i = 1; i <= 170; i++) {
+                    this.mg['mk' + i].mks.mksa.mksac.shape.graphics.c().f(c).s().p(_0x585caa(0x7e));
+                    this.mg['mk' + i][_0x585caa(0x17f)][_0x585caa(0x112)][_0x585caa(0xc1)](
+                        -0.5 * this.mg['mk' + i]['mks']['nominalBounds'][_0x585caa(0xe4)],
+                        -0.5 * this.mg['mk' + i][_0x585caa(0x17f)][_0x585caa(0x11c)]['height'],
+                        this.mg['mk' + i][_0x585caa(0x17f)]['nominalBounds'][_0x585caa(0xe4)],
+                        this.mg['mk' + i][_0x585caa(0x17f)][_0x585caa(0x11c)][_0x585caa(0xdb)]
+                    );
+                }
             }
             this['funLightColor'] = _0xf28cc1,
+            this['updateAppleColor'] = updateAppleColor,
             flPlaying = !![],
             _0x3245b6();
         }
@@ -1909,11 +1928,13 @@ function(_0x417268, _0x470bf3) {
                 exportRoot['flBGM'] ? this[_0x340742(0x149)][_0x340742(0x1e3)](0x0) : this['mzCheckBGM'][_0x340742(0x1e3)](0x1));
             } catch (_0x50fc60) {}
             exportRoot[_0x340742(0xe9)] = ![],
+            /*
             this[_0x340742(0xfa)][_0x340742(0x1e3)](0x1);
             try {
                 _0xfa5344(_0x340742(0x92)) != null && (exportRoot['flLightColor'] = _0xfa5344(_0x340742(0x92)) == _0x340742(0x19b) ? !![] : ![],
                 exportRoot[_0x340742(0xe9)] ? this[_0x340742(0xfa)]['gotoAndStop'](0x0) : this[_0x340742(0xfa)][_0x340742(0x1e3)](0x1));
             } catch (_0x13a630) {}
+            */
             this[_0x340742(0x14f)][_0x340742(0x16f)][_0x340742(0x133)][_0x340742(0xb9)] = _0x340742(0x198),
             this[_0x340742(0x14f)][_0x340742(0x16f)]['mzSlSoundRangeBar']['on'](_0x340742(0x131), _0x5249ec, this),
             this['mzSlSound'][_0x340742(0x16f)]['mzSlSoundRangeBar']['on'](_0x340742(0x104), _0xa44670, this),
@@ -1970,6 +1991,8 @@ function(_0x417268, _0x470bf3) {
             this[_0x340742(0xfa)][_0x340742(0xb9)] = _0x340742(0x198),
             this[_0x340742(0xfa)]['on'](_0x340742(0xd2), _0x34a7ed, this);
             function _0x34a7ed(_0x46b8de) {
+                return; // old light colors code
+                /*
                 var _0x2d5b19 = _0x340742;
                 exportRoot[_0x2d5b19(0xe9)] ? (exportRoot[_0x2d5b19(0xe9)] = ![],
                 this['mzCheckLightColor'][_0x2d5b19(0x1e3)](0x1)) : (exportRoot[_0x2d5b19(0xe9)] = !![],
@@ -1980,10 +2003,13 @@ function(_0x417268, _0x470bf3) {
                     this['mm'][_0x2d5b19(0xee)]();
                 } catch (_0x47a8ef) {}
                 document['cookie'] = _0x2d5b19(0x17e) + exportRoot['flLightColor'];
+                */
             }
+            /*
             ef_lang == 'ja' ? (this[_0x340742(0xfa)]['x'] = 0x1d3,
             this[_0x340742(0x18f)]['x'] = 0x1e3) : (this[_0x340742(0xfa)]['x'] = 0x1ba,
             this['mzTextLightColor']['x'] = 0x1ca);
+            */
             this[_0x340742(0x1a6)][_0x340742(0x184)] = ![],
             this[_0x340742(0x1a6)][_0x340742(0xb9)] = _0x340742(0x198),
             this[_0x340742(0x1a6)]['on'](_0x340742(0xd2), _0x22426e, this);
@@ -2064,8 +2090,10 @@ function(_0x417268, _0x470bf3) {
                 't': this[_0x34ff56(0x126)]
             }, {
                 't': this[_0x34ff56(0x10c)]
+            /*
             }, {
                 't': this[_0x34ff56(0x18f)]
+            */
             }]
         }, 0x5)[_0x34ff56(0x15a)](0x5)),
         this['instance'] = new _0x2172f1[(_0x34ff56(0xdc))](),

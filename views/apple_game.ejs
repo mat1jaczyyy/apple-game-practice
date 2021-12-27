@@ -113,18 +113,46 @@
 		</div>
 	</div>
 	<% if (practice) { %>
-		<div style="margin-top: 30px;">
-			<p><span style="font-weight: bold;">Settings</span></p>
-			<p>
-				Time: <input type="number" id="timeAll" min="5" max="600" value="120" style="width: 4em;" required> seconds
-			</p>
+		<div id="settings">
+			<div style="margin-bottom: 20px;">
+				<span style="font-weight: bold; text-decoration: underline;">
+					Settings
+				</span>
+			</div>
+			<div>
+				<span style="font-weight: bold;">
+					Time:
+				</span>
+				<input type="number" id="timeAll" min="5" max="600" value="120" style="width: 4em;" required> seconds
+			</div>
+			<div>
+				<span style="font-weight: bold;">
+					Colors:
+				</span>
+				<input type="color" id="appleColor" value="#FF3333" style="width: 2em; height: 2em; border: none" onchange="changeAppleColor()" required>
+				<button onclick="setAppleColor('#FF3333')">Default</button>
+				<button onclick="setAppleColor('#FF6655')">Light</button>
+			</div>
 			<script>
-				let timeAll = document.getElementById("timeAll");
-				timeAll.value = localStorage.getItem("timeAll") || timeAll.value;
+				let vars = ["timeAll", "appleColor"];
+				
+				for (const i of vars) {
+					let e = document.getElementById(i);
+					e.value = localStorage.getItem(i) || e.value;
 
-				timeAll.addEventListener('input', el => {
-					localStorage.setItem("timeAll", timeAll.value);
-				});
+					e.addEventListener('input', el => {
+						localStorage.setItem(i, e.value);
+					});
+				}
+
+				function setAppleColor(c) {
+					document.getElementById("appleColor").value = c;
+					changeAppleColor(c);
+				}
+
+				function changeAppleColor() {
+					exportRoot.mm.updateAppleColor(document.getElementById("appleColor").value);
+				}
 			</script>
 		</div>
 	<% } %>
