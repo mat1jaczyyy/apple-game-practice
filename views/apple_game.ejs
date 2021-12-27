@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>apple game<% if (practice) { %> practice<% } %></title>
 	<meta name="apple-mobile-web-app-title" content="apple game<% if (practice) { %> practice<% } %>">
+	<meta name="color-scheme" content="light">
 	<link rel="apple-touch-icon" href="files/icons/icon_box_a.png" sizes="180x180">
 	<link rel="stylesheet" type="text/css" href="files/gamepage-css/gamepage.css">
 
@@ -103,7 +104,7 @@
 		</p>
 		<div id="animation_container">
 			<canvas id="canvas" width="720" height="470"
-				style="position: absolute; display: block; background-color:rgba(255,255,255, 1.00);"></canvas>
+				style="position: absolute; display: block;"></canvas>
 			<div id="dom_overlay_container"
 				style="pointer-events:none; overflow:hidden; width:720px; height:470px; position: absolute; left: 0px; top: 0px; display: block;">
 			</div>
@@ -129,7 +130,7 @@
 				<span style="font-weight: bold;">
 					Colors:
 				</span>
-				<input type="color" id="appleColor" value="#FF3333" style="width: 2em; height: 2em; border: none" onchange="changeAppleColor()" required>
+				<input type="color" id="appleColor" value="#FF3333" style="width: 2em; height: 2em; border: none; background-color: rgba(90, 90, 90, 0.15);" onchange="changeAppleColor()" required>
 				<button onclick="setAppleColor('#FF3333')">Default</button>
 				<button onclick="setAppleColor('#FF6655')">Light</button>
 			</div>
@@ -142,9 +143,15 @@
 					(resource intensive!)
 				</span>
 			</div>
+			<div>
+				<span style="font-weight: bold;">
+					Dark theme:
+				</span>
+				<input type="checkbox" id="darkMode" onchange="changeDarkMode()" required>
+			</div>
 			<script>
 				let vars = ["timeAll", "appleColor"];
-				let checkboxes = ["powerSaving"];
+				let checkboxes = ["powerSaving", "darkMode"];
 				
 				for (const i of vars) {
 					let e = document.getElementById(i);
@@ -176,6 +183,18 @@
 				function changePowerSaving() {
 					exportRoot.mm?.updatePowerSaving(document.getElementById("powerSaving").checked);
 				}
+
+				function changeDarkMode() {
+  					if (document.getElementById("darkMode").checked) {
+						document.body.classList.add("dark-mode");
+						document.querySelector('meta[name="color-scheme"]').setAttribute("content", "dark");
+					} else {
+						document.body.classList.remove("dark-mode");
+						document.querySelector('meta[name="color-scheme"]').setAttribute("content", "light");
+					}
+				}
+
+				changeDarkMode();
 			</script>
 		</div>
 	<% } %>
