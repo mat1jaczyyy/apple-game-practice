@@ -173,6 +173,7 @@
 
 				function setAppleColor(c) {
 					document.getElementById("appleColor").value = c;
+					localStorage.setItem("appleColor", c);
 					changeAppleColor(c);
 				}
 
