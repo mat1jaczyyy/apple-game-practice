@@ -178,21 +178,26 @@
 				}
 
 				function changeAppleColor() {
-					exportRoot.mm?.updateAppleColor(document.getElementById("appleColor").value);
+					exportRoot?.mm?.updateAppleColor(document.getElementById("appleColor").value);
 				}
 
 				function changePowerSaving() {
-					exportRoot.mm?.updatePowerSaving(document.getElementById("powerSaving").checked);
+					exportRoot?.mm?.updatePowerSaving(document.getElementById("powerSaving").checked);
 				}
 
 				function changeDarkMode() {
-  					if (document.getElementById("darkMode").checked) {
+					let v = document.getElementById("darkMode").checked;
+					let meta = document.querySelector('meta[name="color-scheme"]');
+
+  					if (v) {
 						document.body.classList.add("dark-mode");
-						document.querySelector('meta[name="color-scheme"]').setAttribute("content", "dark");
+						meta.setAttribute("content", "dark");
 					} else {
 						document.body.classList.remove("dark-mode");
-						document.querySelector('meta[name="color-scheme"]').setAttribute("content", "light");
+						meta.setAttribute("content", "light");
 					}
+
+					exportRoot?.updateDarkMode(v);
 				}
 
 				changeDarkMode();
