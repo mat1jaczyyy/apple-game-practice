@@ -128,6 +128,13 @@
 			</div>
 			<div>
 				<span style="font-weight: bold;">
+					Custom board:
+				</span>
+				<input type="text" id="customBoard">
+				<button onclick="copyBoard()">Copy current board</button>
+			</div>
+			<div>
+				<span style="font-weight: bold;">
 					Colors:
 				</span>
 				<input type="color" id="appleColor" value="#FF3333" style="width: 2em; height: 2em; border: none; background-color: rgba(90, 90, 90, 0.15);" onchange="changeAppleColor()" required>
@@ -150,7 +157,7 @@
 				<input type="checkbox" id="darkMode" onchange="changeDarkMode()" required>
 			</div>
 			<script>
-				let vars = ["timeAll", "appleColor"];
+				let vars = ["timeAll", "customBoard", "appleColor"];
 				let checkboxes = ["powerSaving", "darkMode"];
 				
 				for (const i of vars) {
@@ -201,6 +208,13 @@
 				}
 
 				changeDarkMode();
+
+				function copyBoard() {
+					let board = exportRoot?.mm?.copyBoard();
+
+					if (board)
+						navigator.clipboard.writeText(board);
+				}
 			</script>
 		</div></div>
 	<% } %>

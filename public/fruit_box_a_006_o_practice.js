@@ -1,4 +1,3 @@
-//let CUSTOM_MAP = [];
 let CREATE_TEXT_ELEMENT = function(t, n, x, y, w, a = "left", c = "#CC0000") {
     t[n] = new createjs.Text("000", "16px 'subset_2019_06_10'", c);
     t[n].parent = t;
@@ -1565,7 +1564,18 @@ function(_0x417268, _0x470bf3) {
                 results[resk] = [resv.reduce((a,b)=>a+b,0)/resv.length, resv.length];
             console.log(results);*/
             sizeMk = this['mg']['mk' + kk]['nominalBounds'][_0x12dfe1(0xe4)];
+
+            let CUSTOM_MAP = undefined;
+            let customBoardString = document.getElementById("customBoard").value;
+            if (customBoardString.match('^([1-9]{170})$')) {
+                CUSTOM_MAP = customBoardString.split('').map(i => Number(i));
+                
+                if (CUSTOM_MAP.reduce((a, b) => a + b, 0) % 10 != 0)
+                    CUSTOM_MAP = undefined;
+            }
+
             while (!![]) {
+                this.startingBoard = [];
                 sum = 0x0,
                 flHas10 = ![],
                 kk = 0x0;
@@ -1579,6 +1589,7 @@ function(_0x417268, _0x470bf3) {
                         this['mg']['mk' + kk][_0x12dfe1(0x17f)][_0x12dfe1(0x112)][_0x12dfe1(0xc7)][_0x12dfe1(0x1d4)] = this['mg']['mk' + kk]['nu'],
                         this['mg']['mk' + kk][_0x12dfe1(0x17f)][_0x12dfe1(0x112)][_0x12dfe1(0xc1)](-0.5 * this['mg']['mk' + kk][_0x12dfe1(0x17f)]['nominalBounds'][_0x12dfe1(0xe4)], -0.5 * this['mg']['mk' + kk]['mks'][_0x12dfe1(0x11c)][_0x12dfe1(0xdb)], this['mg']['mk' + kk]['mks'][_0x12dfe1(0x11c)][_0x12dfe1(0xe4)], this['mg']['mk' + kk][_0x12dfe1(0x17f)]['nominalBounds'][_0x12dfe1(0xdb)]),
                         this['mg']['mk' + kk]['mks'][_0x12dfe1(0x102)]['visible'] = ![];
+                        this.startingBoard.push(this['mg']['mk' + kk]['nu']);
                     }
                 }
                 if (!flHas10)
@@ -1789,9 +1800,13 @@ function(_0x417268, _0x470bf3) {
                     this.txMax.text = "";
                 }
             }
+            function copyBoard() {
+                return this.startingBoard? this.startingBoard.join('') : null;
+            }
             this['funLightColor'] = _0xf28cc1,
             this['updateAppleColor'] = updateAppleColor,
-            this['updatePowerSaving'] = updatePowerSaving,
+            this['updateAppleColor'] = updateAppleColor,
+            this['copyBoard'] = copyBoard,
             flPlaying = !![],
             _0x3245b6();
         }
