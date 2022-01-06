@@ -1800,13 +1800,13 @@ function(_0x417268, _0x470bf3) {
                     this.txMax.text = "";
                 }
             }
-            function copyBoard() {
+            function grabBoard() {
                 return this.startingBoard? this.startingBoard.join('') : null;
             }
             this['funLightColor'] = _0xf28cc1,
             this['updateAppleColor'] = updateAppleColor,
-            this['updateAppleColor'] = updateAppleColor,
-            this['copyBoard'] = copyBoard,
+            this['updatePowerSaving'] = updatePowerSaving,
+            this['grabBoard'] = grabBoard,
             flPlaying = !![],
             _0x3245b6();
         }

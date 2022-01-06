@@ -131,7 +131,7 @@
 					Custom board:
 				</span>
 				<input type="text" id="customBoard">
-				<button onclick="copyBoard()">Copy current board</button>
+				<button onclick="grabBoard()">Grab current board</button>
 			</div>
 			<div>
 				<span style="font-weight: bold;">
@@ -209,11 +209,12 @@
 
 				changeDarkMode();
 
-				function copyBoard() {
-					let board = exportRoot?.mm?.copyBoard();
+				function grabBoard() {
+					let board = exportRoot?.mm?.grabBoard();
 
-					if (board)
-						navigator.clipboard.writeText(board);
+					if (board) {
+						document.getElementById("customBoard").value = board;
+					}
 				}
 			</script>
 		</div></div>
